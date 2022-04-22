@@ -1,25 +1,17 @@
 import { React, useEffect, useState } from 'react'
-import { AiOutlineLike } from 'react-icons/ai'
 import api from '../../services/api';
 import Header from '../../components/Header/Header'
-
-
-function localStorage(){
-    
-
-
-}
+import { AiOutlineLike } from 'react-icons/ai'
 
 
 function Home(){
-    const [like, setLike] = useState([])
+    const [like, setLike] = useState(localStorage.getItem('Curtidas') || []);
     
-
+    console.log(like)
     const [repositories, setRepositories] = useState([]);
 
     useEffect(()=>{
         api.get("/repositories").then(({data})=>{
-            console.log(data)
             setRepositories(data);
         })
     },[])
@@ -33,18 +25,25 @@ function Home(){
                     repositories?.map((repositorie)=>{
                         return(
                             <div className="w-4/5 m-5 bg-white p-5 text-black rounded-md border-black border-5" key={repositorie.id}>
-                                 <h1 className="text-3xl text-left">{repositorie.name}</h1>
-                                 <div className=" flex flex-row justify-end">   
+                            <h1 className="text-3xl text-left">{repositorie.name}</h1>
+                                <div className=" flex flex-row justify-end">   
                                     <button className='pr-2'><a href={repositorie.html_url}>Acessar Repositório</a></button>
-                                    <button className='text-xl hover:text-blue-600 focus:text-blue-600'>
+                                    <button className='text-xl hover:text-blue-600 focus:text-blue-600' onClick={(name)=>{
+                                        return (
+                                            localStorage.setItem('Curtidas', JSON.stringify(like)),
+                                            setLike(repositorie.name)
+                                            
+                                                
+                                        )}}>
                                         <AiOutlineLike />
                                     </button>
-                                 </div>
+                                </div>
                                 <p className="text-sm pt-3 text-justify">{repositorie.description}</p>
-                            </div>
+                        </div>
                         )
                     })
                 }
+                
              </main>
         </>
     )
