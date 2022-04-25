@@ -12,10 +12,6 @@ export default function Header(){
         p-10 
         font-mono">
             <img src={logoGitHub} alt="Logo Github"  className='w-20'/>
-            <div className="">
-                <a className="ml-5 hover:text-blue-200 hover:text-lg" href="/">Inicio</a>
-                <a className="ml-5 hover:text-blue-200 hover:text-lg" href="/">Curtidas</a>
-            </div>
         </header>
     )
 }

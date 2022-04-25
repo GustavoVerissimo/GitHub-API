@@ -5,9 +5,6 @@ import { AiOutlineLike } from 'react-icons/ai'
 
 
 function Home(){
-    const [like, setLike] = useState(localStorage.getItem('Curtidas') || []);
-    
-    console.log(like)
     const [repositories, setRepositories] = useState([]);
 
     useEffect(()=>{
@@ -28,15 +25,6 @@ function Home(){
                             <h1 className="text-3xl text-left">{repositorie.name}</h1>
                                 <div className=" flex flex-row justify-end">   
                                     <button className='pr-2'><a href={repositorie.html_url}>Acessar Repositório</a></button>
-                                    <button className='text-xl hover:text-blue-600 focus:text-blue-600' onClick={(name)=>{
-                                        return (
-                                            localStorage.setItem('Curtidas', JSON.stringify(like)),
-                                            setLike(repositorie.name)
-                                            
-                                                
-                                        )}}>
-                                        <AiOutlineLike />
-                                    </button>
                                 </div>
                                 <p className="text-sm pt-3 text-justify">{repositorie.description}</p>
                         </div>
